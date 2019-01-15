@@ -1,0 +1,32 @@
+body,
+html {
+	min-height: 100vh; 
+}
+
+body {
+    padding-top: 56px;
+}
+
+.footer {
+	position: sticky;
+	top: 100%; 
+	background: #000;
+	color: #fff;
+	padding: 15px 0;
+}
+
+.hero {
+	background-image: url(../img/stars.jpg);
+	background-size: cover;
+	background-position: center center;
+}
+
+@media (max-width: 1080px) {
+	.hero {
+		background-position: center bottom;
+	}
+}
+
+.hero .container {
+	color: #fff;
+}
