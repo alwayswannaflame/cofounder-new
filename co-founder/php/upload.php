@@ -5,6 +5,27 @@ $uploadOk = 1;
 $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
 // Check if image file is a actual image or fake image
 if(isset($_POST["submit"])) {
+    require('db.php');
+    require('session-start.php');
+    global $connection;
+    $username=$_SESSION["username"];
+    // $_SESSION['username'] = $username;
+    // echo $username;
+    $query= "SELECT id FROM users WHERE username='$username'";
+    $result= mysqli_query($connection,$query);
+    if (!$result){
+        die ('Query FAILED'.mysqli_error());}
+        $row=mysqli_fetch_assoc($result);
+            $_SESSION['id'] = $row['id'];
+            $id=$_SESSION['id'];
+      
+             // print_r($row);
+    }        
+
+
+
+
+if(isset($_POST["submit"])) {
     $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
     if($check !== false) {
         echo "File is an image - " . $check["mime"] . ".";
@@ -36,6 +57,11 @@ if ($uploadOk == 0) {
 // if everything is ok, try to upload file
 } else {
     if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
+        $title=mysqli_real_escape_string($connection,basename( $_FILES["fileToUpload"]["name"]));
+        $query="INSERT INTO photos (title,userid) VALUES('$title','$id')";
+        $result= mysqli_query($connection,$query);
+        if (!$result){
+        die ('Query FAILED'.mysqli_error());}    
         echo "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
         header("Location:../upload.php");
 } else {

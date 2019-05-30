@@ -14,7 +14,7 @@
 	<link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="assets/css/main.css">
 </head>
-<form action="/co-founder/php/upload.php" method="post" enctype="multipart/form-data">
+<form action="/cofounder/php/upload.php" method="post" enctype="multipart/form-data">
     Select image to upload:
     <input type="file" name="fileToUpload" id="fileToUpload">
     <input type="submit" value="Upload Image" name="submit">

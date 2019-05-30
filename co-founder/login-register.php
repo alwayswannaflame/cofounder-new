@@ -6,7 +6,6 @@
 <html>
 <head>
 	<title>Co-founder - login-register</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="assets/css/main.css">
 </head>
@@ -25,12 +24,12 @@
 				    // removes backslashes
 					$username = stripslashes($_REQUEST['log-username']);
 				    //escapes special characters in a string
-					$username = mysqli_real_escape_string($con,$username);
+					$username = mysqli_real_escape_string($connection,$username);
 					$password = stripslashes($_REQUEST['log-password']);
-					$password = mysqli_real_escape_string($con,$password);
+					$password = mysqli_real_escape_string($connection,$password);
 					//Checking is user existing in the database or not
-				    $query = "SELECT * FROM `users` WHERE username='$username' and password='".md5($password)."'";
-					$result = mysqli_query($con,$query) or die(mysql_error());
+				    $query = "SELECT * FROM users WHERE username='$username' and password='".md5($password)."'";
+					$result = mysqli_query($connection,$query) or die(mysql_error());
 					$rows = mysqli_num_rows($result);
 			        if($rows==1){
 					    $_SESSION['username'] = $username;
@@ -70,11 +69,11 @@
 						$password = stripslashes($_REQUEST['password']);
 						$password = mysqli_real_escape_string($con,$password);
 						$trn_date = date("Y-m-d H:i:s");
-					    $con2="SELECT * FROM `users` WHERE username='$username'";
+					    $con2="SELECT * FROM users WHERE username='$username'";
 					    $result= mysqli_query($con, $con2);
 					    $rows = mysqli_num_rows($result);
 					    if ($rows<1) {
-						   	$query = "INSERT into `users` (username, password, trn_date)
+						   	$query = "INSERT INTO users (username, password, trn_date)
 							VALUES ('$username', '".md5($password)."', '$trn_date')";
 					        $result = mysqli_query($con,$query);
 					        if($result){
@@ -123,8 +122,6 @@
 		</div>
 	</div>
 	<?php include 'templates/footer.php';?>
-	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 	<script type="text/javascript" src="assets/js/bootstrap.min.js"></script>
 </body>
 </html>
